@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tham Quan Ảo ITC</title>
+    <meta name="description"
+        content="Khám phá không gian học tập và hoạt động của CĐ ITC qua tour tham quan ảo. Trải nghiệm học tập tuyệt vời ngay tại nhà!">
+    <meta name="keywords" content="Tham quan ảo, CĐ ITC, Trường Cao đẳng, panorama, học tập, trải nghiệm">
+    <meta name="author" content="Trường Cao đẳng CĐ ITC">
+    <link rel="canonical" href="https://example.com/tham-quan-ao-CĐ ITC">
+    <meta property="og:title" content="Tham Quan Ảo CĐ ITC - Khám Phá Trường Cao đẳng Đột Phá">
+    <meta property="og:description"
+        content="Khám phá không gian học tập và hoạt động của Trường Cao đẳng CĐ ITC qua tour tham quan ảo.">
+    <meta property="og:image" content="https://example.com/thumbnail.jpg">
+    <meta property="og:url" content="https://example.com/tham-quan-ao-CĐ ITC">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tham Quan Ảo CĐ ITC - Khám Phá Trường Cao đẳng Đột Phá">
+    <meta name="twitter:description"
+        content="Khám phá không gian học tập và hoạt động của Trường Cao đẳng CĐ ITC qua tour tham quan ảo.">
+    <meta name="twitter:image" content="https://example.com/thumbnail.jpg">
+    <link rel="stylesheet" href="https://cdn.pannellum.org/2.5/pannellum.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="buton-sc">
+        <div class="bt-sc"><a href="index.html">Cổng Trường</a></div>
+        <div class="bt-sc"><a href="phonglt.html">Phòng Lý Thuyết</a></div>
+        <div class="bt-sc"><a href="phongth.html">Phòng Thực Hành</a></div>
+    </div>
+
+    <div id="pano">
+        <div id="panorama"></div>
+    </div>
+
+    <audio id="background-audio" src="sound/dgtrr-sound.mp3" loop autoplay></audio>
+    <button id="toggle-sound">Tắt/Mở Âm Thanh</button>
+
+    <script src="https://cdn.pannellum.org/2.5/pannellum.js"></script>
+    <script>
+        const scenes = {
+            0: 'img/hinh2.jpg',
+        };
+
+        const viewer = pannellum.viewer('panorama', {
+            type: 'equirectangular',
+            panorama: scenes[0],
+            autoLoad: true,
+            showControls: true,
+            hfov: 100,
+            vOffset: 0,
+        });
+
+        function autoRotate() {
+            setInterval(() => {
+                viewer.setYaw(viewer.getYaw() + 5);
+            }, 100);
+        }
+
+        autoRotate();
+
+        // 
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I')) {
+                event.preventDefault();
+            }
+        });
+
+        document.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+        });
+
+        const devtools = /./;
+        Object.defineProperty(devtools, 'toString', {
+            get: function () {
+                return () => { };
+            }
+        });
+        console.log('%c', devtools);
+
+        const audio = document.getElementById('background-audio');
+        const toggleButton = document.getElementById('toggle-sound');
+
+        toggleButton.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                toggleButton.textContent = 'Tắt Âm Thanh';
+            } else {
+                audio.pause();
+                toggleButton.textContent = 'Mở Âm Thanh';
+            }
+        });
+    </script>
+</body>
+
+</html>
